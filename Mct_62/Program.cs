@@ -13,7 +13,7 @@ namespace Mct_62
             for (var i = 0; i < 5; i++)
             {
                 GetRandomPermutation(array).Log();
-                Thread.Sleep(1);
+                EnsureNewRandom();
             }
 
             Console.ReadKey();
@@ -21,10 +21,15 @@ namespace Mct_62
 
         static int[] GetRandomPermutation(int[] array)
         {
-            var result = array.Clone() as int[];
+            var result = (int[])array.Clone();
             result.Shuffle();
 
             return result;
+        }
+
+        private static void EnsureNewRandom()
+        {
+            Thread.Sleep(1);
         }
     }
 }
