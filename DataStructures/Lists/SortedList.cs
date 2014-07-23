@@ -8,22 +8,22 @@ namespace DataStructures.Lists
     {
         public override void Add(T value)
         {
-            if (Root == null)
+            if (Head == null)
             {
-                Root = new LinkedListNode<T>(value);
+                Head = new LinkedListNode<T>(value);
                 return;
             }
 
-            if (Root.Value.CompareTo(value) > 0)
+            if (Head.Value.CompareTo(value) > 0)
             {
-                var newRoot = new LinkedListNode<T>(value, Root);
-                Root = newRoot;
+                var newRoot = new LinkedListNode<T>(value, Head);
+                Head = newRoot;
 
                 return;
             }
 
             LinkedListNode<T> current;
-            for (current = Root; current.Next != null && current.Next.Value.CompareTo(value) < 0; current = current.Next) ;
+            for (current = Head; current.Next != null && current.Next.Value.CompareTo(value) < 0; current = current.Next) ;
 
             current.Next = new LinkedListNode<T>(value, current.Next);
         }

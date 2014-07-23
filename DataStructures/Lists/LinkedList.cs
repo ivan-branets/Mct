@@ -1,32 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using DataStructures.Enumerators;
+using System.Linq;
 
 namespace DataStructures.Lists
 {
-    public class LinkedList<T> : IEnumerable<T>
+    public class LinkedList<T> : ICollection<T>
     {
-        internal Nodes.LinkedListNode<T> Root { get; set; }
-        private Nodes.LinkedListNode<T> Last { get; set; }
+        internal Nodes.LinkedListNode<T> Head { get; set; }
+
+        private Nodes.LinkedListNode<T> Tail { get; set; }
 
         public virtual void Add(T value)
         {
-            if (Root == null)
+            if (Head == null)
             {
-                Root = new Nodes.LinkedListNode<T>(value);
-                Last = Root;
+                Head = new Nodes.LinkedListNode<T>(value);
+                Tail = Head;
             }
             else
             {
-                Last = Last.AddNext(value);
+                Tail = Tail.AddNext(value);
             }
+
+            Count++;
+        }
+
+        public void Clear()
+        {
+            Head = null;
+            Tail = null;
+            Count = 0;
+        }
+
+        public bool Contains(T item)
+        {
+            return Enumerable.Contains(this, item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            foreach (var value in this)
+            {
+                array[arrayIndex++] = value;
+            }
+        }
+
+        public bool Remove(T item)
+        {
+            if (Head == null) return false;
+
+            var prev = Head;
+            var current = prev.Next;
+
+            while (current != null)
+            {
+                if (current.Value.Equals(item))
+                {
+                    prev.Next = current.Next;
+                    return true;
+                }
+
+                prev = current;
+                current = current.Next;
+            }
+
+            return false;
+        }
+
+        public int Count { get; private set; }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
         }
 
         public virtual void Reverse()
         {
-            if (Root == null) return;
+            if (Head == null) return;
 
-            var current = Root;
+            var current = Head;
             var next = current.Next;
             current.Next = null;
 
@@ -38,17 +90,46 @@ namespace DataStructures.Lists
                 next = prevNext;
             }
 
-            Root = current;
+            Tail = Head;
+            Head = current;
+        }
+
+        public void AddLoop(T value)
+        {
+            var current = Head;
+
+            while (current != null)
+            {
+                if (current.Value.Equals(value))
+                {
+                    Tail.Next = current;
+                    return;
+                }
+                current = current.Next;
+            }
+        }
+
+        public bool HasLoop()
+        {
+            var initialHead = Head;
+            Reverse();
+
+            return initialHead == Head;
         }
 
         public virtual IEnumerator<T> GetEnumerator()
         {
-            return new LinkedListEnumerator<T>(this);
+            var current = Head;
+            while (current != null)
+            {
+                yield return current.Value;
+                current = current.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new LinkedListEnumerator<T>(this);
+            return GetEnumerator();
         }
     }
 }

@@ -15,6 +15,17 @@ namespace Extensions
         public static void Shuffle<T>(this IList<T> collection)
         {
             var rand = new Random(DateTime.Now.Millisecond);
+
+            if (collection.Count == 2)
+            {
+                if (rand.Next(int.MaxValue) % 2 == 0)
+                {
+                    Swap(collection, 0, 1);
+                }
+
+                return;
+            }
+
             var lastIndex = collection.Count - 1;
 
             for (var i = 0; i < collection.Count / 2; i++)

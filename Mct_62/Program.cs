@@ -16,6 +16,10 @@ namespace Mct_62
                 EnsureNewRandom();
             }
 
+            GetRandomPermutation(new int[0]).Log();
+            GetRandomPermutation(new[] { 1 }).Log();
+            GetRandomPermutation(new[] { 1, 2 }).Log();
+
             Console.ReadKey();
         }
 
