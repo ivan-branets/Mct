@@ -1,6 +1,6 @@
 ﻿namespace DataStructures.Nodes
 {
-    class LinkedListNode<T> : Node<T>
+    public class LinkedListNode<T> : Node<T>
     {
         public LinkedListNode()
         {

@@ -6,9 +6,9 @@ namespace DataStructures.Lists
 {
     public class LinkedList<T> : ICollection<T>
     {
-        internal Nodes.LinkedListNode<T> Head { get; set; }
+        protected Nodes.LinkedListNode<T> Head { get; set; }
 
-        private Nodes.LinkedListNode<T> Tail { get; set; }
+        protected Nodes.LinkedListNode<T> Tail { get; set; }
 
         public virtual void Add(T value)
         {
@@ -57,6 +57,7 @@ namespace DataStructures.Lists
                 if (current.Value.Equals(item))
                 {
                     prev.Next = current.Next;
+                    Count--;
                     return true;
                 }
 
@@ -67,7 +68,7 @@ namespace DataStructures.Lists
             return false;
         }
 
-        public int Count { get; private set; }
+        public int Count { get; protected set; }
 
         public bool IsReadOnly
         {
