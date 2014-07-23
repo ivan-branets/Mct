@@ -7,7 +7,7 @@ namespace Mct_42
         static void Main()
         {
             const int maxDegry = 10;
-            for (ulong i = 1; i <= 2 << (maxDegry - 1); i++)
+            for (ulong i = 1; i <= Math.Pow(2, maxDegry); i++)
             {
                 if (IsPowOf2(i)) Console.WriteLine(i);
             }
@@ -17,7 +17,8 @@ namespace Mct_42
 
         private static bool IsPowOf2(ulong n)
         {
-            return ((ulong)(2) << sizeof (ulong) * (8 - 1)) % n == 0;
+            const ulong maxPowOf2 = 0x8000000000000000;
+            return maxPowOf2 % n == 0;
         }
     }
 }
