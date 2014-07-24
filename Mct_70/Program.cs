@@ -18,6 +18,7 @@ namespace Mct_70
             Console.WriteLine(GetRevercedBits(545550534)); //result 1661870340 01100011000011100010000100000100
             Console.WriteLine(GetRevercedBits(1661870340)); //result 545550534 00100000100001000111000011000110
 
+            Console.WriteLine(GetRevercedBits(2684452869)); //result 2684452869 10100000000000011000000000000101
             Console.WriteLine(GetRevercedBits(0));
 
             Console.ReadKey();
