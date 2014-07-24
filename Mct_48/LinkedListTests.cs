@@ -7,6 +7,74 @@ namespace Mct_48
     public class LinkedListTests
     {
         [TestMethod]
+        public void IsNewListEmpty()
+        {
+            CollectionAssert.AreEqual(new int[0], new LinkedList<int>());                            
+        }
+
+        [TestMethod]
+        public void AddTest()
+        {
+            var actual = new LinkedList<int>();
+            var expected = new System.Collections.Generic.List<int>();
+
+            for (var i = 0; i < 5; i++)
+            {
+                actual.Add(i);
+                expected.Add(i);
+
+                CollectionAssert.AreEqual(expected, actual);                
+            }
+        }
+
+        [TestMethod]
+        public void InsertTest()
+        {
+            var actual = new LinkedList<int>{ -1, -2 };
+            var expected = new System.Collections.Generic.List<int> { -1, -2 };
+
+            for (var i = 0; i < 5; i++)
+            {
+                var middle = expected.Count / 2;
+
+                actual.Insert(middle, i * 10);
+                expected.Insert(middle, i * 10);
+
+                CollectionAssert.AreEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
+        public void InsertFirstTest()
+        {
+            var actual = new LinkedList<int>();
+            var expected = new System.Collections.Generic.List<int>();
+
+            for (var i = 0; i < 5; i++)
+            {
+                actual.Insert(0, i * 10);
+                expected.Insert(0, i * 10);
+
+                CollectionAssert.AreEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
+        public void InsertLastTest()
+        {
+            var actual = new LinkedList<int>();
+            var expected = new System.Collections.Generic.List<int>();
+
+            for (var i = 0; i < 5; i++)
+            {
+                actual.Insert(i, i * 10);
+                expected.Insert(i, i * 10);
+
+                CollectionAssert.AreEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
         public void ClearTest()
         {
             var actual = new LinkedList<int> { 1, 2, 3 };
@@ -25,31 +93,15 @@ namespace Mct_48
         }
 
         [TestMethod]
-        public void ClearNotBrokenTest()
-        {
-            var actual = new LinkedList<int>{ 1, 2 };
-            actual.Clear();
-
-            actual.Add(3);
-            actual.Add(4);
-            actual.Add(5);
-
-            CollectionAssert.AreEqual(new [] { 3, 4, 5 }, actual);
-
-            actual.Clear();
-            actual.Clear();
-            CollectionAssert.AreEqual(new int[0], actual);
-        }
-
-        [TestMethod]
         public void ContainsTest()
         {
-            var list = new LinkedList<int> { 1, 2, 3 };
+            var actual = new LinkedList<int> { 0, 1, 2, 3, 4, 5 };
 
-            Assert.IsTrue(list.Contains(1));
-            Assert.IsTrue(list.Contains(2));
-            Assert.IsTrue(list.Contains(3));
-            Assert.IsFalse(list.Contains(4));
+            for (var i = 0; i <= 5; i++)
+            {
+                Assert.IsTrue(actual.Contains(i));
+                Assert.IsFalse(actual.Contains(i + 100));
+            }
         }
 
         [TestMethod]
@@ -57,17 +109,6 @@ namespace Mct_48
         {
             var list = new LinkedList<int>();
             Assert.IsFalse(list.Contains(1));
-        }
-
-        [TestMethod]
-        public void ContainsNotBrokenTest()
-        {
-            var list = new LinkedList<int> { 1, 2, 3 };
-            Assert.IsTrue(list.Contains(1));
-
-            list.Remove(1);
-            Assert.IsFalse(list.Contains(1));
-            Assert.IsTrue(list.Contains(2));
         }
     }
 }

@@ -9,8 +9,6 @@ namespace DataStructures.Lists
         {
             if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
-            Count--;
-
             if (Count == 1)
             {
                 Clear();
@@ -20,30 +18,34 @@ namespace DataStructures.Lists
                 var current = GetNodeAt(Count - 2);
                 current.Next = null;
                 Tail = current;
+
+                Count--;
             }
             else
             {
                 var current = GetNodeAt(index - 1);
                 current.Next = current.Next.Next;
+
+                Count--;
             }
         }
 
-        public void Insert(T value, int index)
+        public void Insert(int index, T value)
         {
-            if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
+            if (index < 0 || index > Count) throw new IndexOutOfRangeException();
 
-            Count++;
-
-            if (index == Count - 1)
+            if (index == Count)
             {
                 Add(value);
             }
             else if (index == 0)
             {
                 Head = new LinkedListNode<T>(value, Head);
+                Count++;
             }
             else
             {
+                Count++;
                 var current = GetNodeAt(index - 1);
                 current.Next = new LinkedListNode<T>(value, current.Next);                
             }
