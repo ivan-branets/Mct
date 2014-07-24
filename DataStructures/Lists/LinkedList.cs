@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -116,6 +117,20 @@ namespace DataStructures.Lists
             Reverse();
 
             return initialHead == Head;
+        }
+
+        public T GetMiddle()
+        {
+            if (Head == null) throw new InvalidOperationException("List doesn't contain elements");
+
+            var current = Head;
+
+            for (var i = 0; i < Count / 2; i++)
+            {
+                current = current.Next;
+            }
+
+            return current.Value;
         }
 
         public virtual IEnumerator<T> GetEnumerator()

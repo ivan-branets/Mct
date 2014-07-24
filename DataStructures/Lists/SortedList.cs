@@ -1,5 +1,5 @@
 ﻿using System;
-using DataStructures.Nodes;
+using System.Collections.Generic;
 
 namespace DataStructures.Lists
 {
@@ -12,14 +12,14 @@ namespace DataStructures.Lists
 
             if (Head == null)
             {
-                Head = new LinkedListNode<T>(value);
+                Head = new Nodes.LinkedListNode<T>(value);
                 Tail = Head;
                 return;
             }
 
             if (Head.Value.CompareTo(value) > 0)
             {
-                var newRoot = new LinkedListNode<T>(value, Head);
+                var newRoot = new Nodes.LinkedListNode<T>(value, Head);
                 Head = newRoot;
 
                 return;
@@ -27,7 +27,7 @@ namespace DataStructures.Lists
 
             if (Tail.Value.CompareTo(value) < 0)
             {
-                var newTail = new LinkedListNode<T>(value);
+                var newTail = new Nodes.LinkedListNode<T>(value);
                 Tail.Next = newTail;
                 Tail = newTail;
 
@@ -41,7 +41,34 @@ namespace DataStructures.Lists
                 current = current.Next;
             }
 
-            current.Next = new LinkedListNode<T>(value, current.Next);
+            current.Next = new Nodes.LinkedListNode<T>(value, current.Next);
+        }
+
+        public IEnumerable<T> GetUnique()
+        {
+            var lastUniqueValue = default (T);
+            var isStarted = false;
+
+            var current = Head;
+            while (current != null)
+            {
+                if (isStarted)
+                {
+                    if (!lastUniqueValue.Equals(current.Value))
+                    {
+                        lastUniqueValue = current.Value;
+                        yield return lastUniqueValue;
+                    }
+                }
+                else
+                {
+                    isStarted = true;
+                    lastUniqueValue = current.Value;
+                    yield return lastUniqueValue;
+                }
+
+                current = current.Next;
+            }
         }
     }
 }

@@ -8,38 +8,21 @@ namespace Mct_69
         static void Main()
         {
             var list = new LinkedList<int> { 1, 2, 3, 4, 5 };
-            Console.WriteLine(GetMiddle(list));
+            Console.WriteLine(list.GetMiddle());
 
             list = new LinkedList<int> { 1, 2, 3, 4 };
-            Console.WriteLine(GetMiddle(list));
+            Console.WriteLine(list.GetMiddle());
 
             list = new LinkedList<int> { 1, 2 };
-            Console.WriteLine(GetMiddle(list));
+            Console.WriteLine(list.GetMiddle());
 
             list = new LinkedList<int> { 1 };
-            Console.WriteLine(GetMiddle(list));
+            Console.WriteLine(list.GetMiddle());
 
             //list = new LinkedList<int> { };
-            //Console.WriteLine(GetMiddle(list));
+            //Console.WriteLine(list.GetMiddle());
 
             Console.ReadKey();
-        }
-
-        private static int GetMiddle(LinkedList<int> list)
-        {
-            var i = 0;
-            var middle = list.Count / 2;
-
-            foreach (var value in list)
-            {
-                if (i == middle)
-                {
-                    return value;
-                }
-                i++;
-            }
-
-            throw new InvalidOperationException("List doesn't contain elements");
         }
     }
 }
