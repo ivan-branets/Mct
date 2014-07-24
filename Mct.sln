@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mct_69", "Mct_69\Mct_69.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mct_58", "Mct_58\Mct_58.csproj", "{02768307-1B74-439C-9F95-909145AA1AE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mct_48", "Mct_48\Mct_48.csproj", "{44B92285-2692-47CF-BB4F-B784597C4549}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{02768307-1B74-439C-9F95-909145AA1AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02768307-1B74-439C-9F95-909145AA1AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02768307-1B74-439C-9F95-909145AA1AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B92285-2692-47CF-BB4F-B784597C4549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B92285-2692-47CF-BB4F-B784597C4549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B92285-2692-47CF-BB4F-B784597C4549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B92285-2692-47CF-BB4F-B784597C4549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
