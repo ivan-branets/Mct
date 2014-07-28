@@ -13,6 +13,11 @@ namespace DataStructures.Lists
             {
                 Clear();
             }
+            else if (index == 0)
+            {
+                Head = Head.Next;
+                Count--;
+            }
             else if (index == Count - 1)
             {
                 var current = GetNodeAt(Count - 2);

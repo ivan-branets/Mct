@@ -65,6 +65,9 @@ namespace DataStructures.Lists
                 {
                     Tail = null;
                 }
+
+                Count--;
+                return true;
             }
 
             var current = GetNode(n => n.Next != null && n.Next.Value.Equals(value));
@@ -81,6 +84,7 @@ namespace DataStructures.Lists
                     current.Next = current.Next.Next;                    
                 }
 
+                Count--;
                 return true;
             }
 
@@ -161,7 +165,6 @@ namespace DataStructures.Lists
 
         protected Nodes.LinkedListNode<T> GetNodeAt(int index)
         {
-            if (Head == null) throw new InvalidOperationException("List doesn't contain elements");
             if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
             var current = Head;
