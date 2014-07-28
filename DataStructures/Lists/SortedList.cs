@@ -17,7 +17,7 @@ namespace DataStructures.Lists
                 return;
             }
 
-            if (Head.Value.CompareTo(value) > 0)
+            if (Head.Value.CompareTo(value) >= 0)
             {
                 var newRoot = new Nodes.LinkedListNode<T>(value, Head);
                 Head = newRoot;
@@ -25,7 +25,7 @@ namespace DataStructures.Lists
                 return;
             }
 
-            if (Tail.Value.CompareTo(value) < 0)
+            if (Tail.Value.CompareTo(value) <= 0)
             {
                 var newTail = new Nodes.LinkedListNode<T>(value);
                 Tail.Next = newTail;
