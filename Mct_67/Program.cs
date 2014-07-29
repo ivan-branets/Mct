@@ -8,13 +8,19 @@ namespace Mct_67
     {
         static void Main()
         {
-            var list = new LinkedList<int> { 1, 2, 3, 4 };
-            PrintReversed(list);
+            PrintReversed(new LinkedList<int> { 1, 2, 3, 4 });
+            PrintReversed(new LinkedList<int> { 1 });
+            PrintReversed(new LinkedList<int> { });
+
+            //PrintReversed(null);
+
             Console.ReadKey();
         }
 
         static void PrintReversed(LinkedList<int> list)
         {
+            if (list == null) throw new ArgumentNullException();
+
             list.Reverse();
             list.Log();
             list.Reverse();
