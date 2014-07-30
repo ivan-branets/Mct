@@ -8,6 +8,8 @@ namespace Extensions
     {
         public static IEnumerable<T> Log<T>(this IEnumerable<T> collection)
         {
+            if (collection == null) throw new ArgumentNullException();
+
             var count = collection.Count();
 
             if (count > 0)
