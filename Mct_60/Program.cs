@@ -25,6 +25,9 @@ namespace Mct_60
                 array.Log();
             }
 
+            //var exp = new[] { 0 };
+            //Compress(ref exp);
+
             Console.ReadKey();
         }
 
@@ -44,6 +47,7 @@ namespace Mct_60
 
             foreach (var a in array)
             {
+                if (a < 1) throw new ArgumentOutOfRangeException("array", "Cannot contain elements less then 1");
                 if (!IsSeen(a, aux))
                 {
                     SetSeen(a, aux);
