@@ -38,5 +38,83 @@ namespace Extensions
             }
         }
 
+        public static int BinarySearch<T>(this IList<T> sortedList, T value)
+            where T : IComparable
+        {
+            if (sortedList == null) throw new ArgumentNullException();
+            if (sortedList.Count == 0) return -1;
+
+            var left = 0;
+            var right = sortedList.Count - 1;
+
+            while (true)
+            {
+                var index = left + (right - left) / 2;
+
+                var cmp = value.CompareTo(sortedList[index]);
+
+                switch (cmp)
+                {
+                    case 0:
+                        return index;
+                    case -1:
+                        if (index == left) return -1;
+                        right = index - 1;
+                        break;
+                    case 1:
+                        if (index == right) return -1;
+                        left = index + 1;
+                        break;
+                }
+            }
+        }
+
+        public static IList<T> QuickSort<T>(this IList<T> list)
+            where T : IComparable
+        {
+            if (list == null) throw new ArgumentNullException();
+            return QuickSort(list, 0, list.Count - 1);
+        }
+
+        private static IList<T> QuickSort<T>(IList<T> list, int start, int end)
+            where T : IComparable
+        {
+            if (end <= start) return list;
+
+            var j = QuickSortPartition(list, start, end);
+
+            QuickSort(list, start, j - 1);
+            QuickSort(list, j + 1, end);
+
+            return list;
+        }
+
+        private static int QuickSortPartition<T>(IList<T> list, int start, int end)
+            where T : IComparable
+        {
+            var i = start;
+            var j = end + 1;
+
+            while (true)
+            {
+                while (list[++i].CompareTo(list[start]) < 0)
+                {
+                    if (i == end) break;
+                }
+
+                while (list[--j].CompareTo(list[start]) > 0)
+                {
+                    if (j == start) break;
+                }
+
+                if (i >= j) break;
+
+                list.Swap(i, j);
+            }
+
+            list.Swap(start, j);
+
+            return j;
+        }
     }
 }

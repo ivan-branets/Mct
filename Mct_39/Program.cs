@@ -8,6 +8,7 @@ namespace Mct_39
         static void Main()
         {
             Console.WriteLine(HasDublicates(new [] { 2, 3, 4 }));
+            Console.WriteLine(HasDublicates(new [] { 2, 3, 4, 1, 5, 1 }));
             Console.WriteLine(HasDublicates(new[] { 2, 4, 4 }));
             Console.WriteLine(HasDublicates(new[] { 2 }));
             Console.WriteLine(HasDublicates(new int[0]));
@@ -21,11 +22,11 @@ namespace Mct_39
             if (array == null) throw new ArgumentNullException();
             if (array.Length == 0) return false;
 
-            var bsd = new Bsd<int>();
+            var bsd = new Bst<int>();
 
             for (var i = 1; i < array.Length; i++)
             {
-                if (!bsd.Add(array[i])) return true;
+                if (!bsd.AddUnique(array[i])) return true;
             }
 
             return false;

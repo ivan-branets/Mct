@@ -20,10 +20,10 @@ namespace Mct_52
 
         static string Substract(string from, string value)
         {
-            var bsd = new Bsd<char>();
+            var bsd = new Bst<char>();
             foreach (var ch in value)
             {
-                bsd.Add(ch);
+                bsd.AddUnique(ch);
             }
 
             var builder = new StringBuilder();
