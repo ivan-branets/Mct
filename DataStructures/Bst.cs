@@ -94,6 +94,21 @@ namespace DataStructures
                 : Find(current.Right, value, out node, out lastNode);
         }
 
+        public int Depth()
+        {
+            return Depth(Root);
+        }
+
+        private int Depth(BstNode<T> node)
+        {
+            if (node == null) return 0;
+
+            var leftDepth = Depth(node.Left);
+            var rightDepth = Depth(node.Right);
+
+            return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+        }
+
         public void TraversalPreOrder(Action<BstNode<T>> action)
         {
             TraversalPreOrder(Root, action);
