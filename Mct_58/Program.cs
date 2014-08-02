@@ -17,7 +17,7 @@ namespace Mct_58
             list = new SortedList<int> { 1 };
             list.GetUnique().Log();
 
-            list = new SortedList<int> { };
+            list = new SortedList<int>();
             list.GetUnique().Log();
 
             Console.ReadKey();

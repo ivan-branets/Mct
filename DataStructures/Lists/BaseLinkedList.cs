@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DataStructures.Nodes;
 
 namespace DataStructures.Lists
 {
-    public abstract class BaseLinkedList<T> : ICollection<T>, ICollection
+    public abstract class BaseLinkedList<TNode, TValue> : ICollection<TValue>, ICollection
+        where TNode: BaseLinkedListNode<TNode, TValue>, new()
     {
-        protected Nodes.LinkedListNode<T> Head { get; set; }
+        protected TNode Head { get; set; }
 
-        protected Nodes.LinkedListNode<T> Tail { get; set; }
+        protected TNode Tail { get; set; }
 
-        public virtual void Add(T value)
+        public virtual void Add(TValue value)
         {
             if (Head == null)
             {
-                Head = new Nodes.LinkedListNode<T>(value);
+                Head = new TNode { Value = value };
                 Tail = Head;
             }
             else
@@ -32,12 +34,12 @@ namespace DataStructures.Lists
             Count = 0;
         }
 
-        public bool Contains(T value)
+        public bool Contains(TValue value)
         {
             return GetNode(n => n.Value.Equals(value)) != null;
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(TValue[] array, int arrayIndex)
         {
             foreach (var value in this)
             {
@@ -53,12 +55,20 @@ namespace DataStructures.Lists
             }
         }
 
-        public bool Remove(T value)
+        public virtual bool Remove(TValue value)
         {
-            if (Head == null) return false;
+            return GetRemoved(value) != null;
+        }
+
+        protected TNode GetRemoved(TValue value)
+        {
+            if (Head == null) return null;
+
+            TNode toBeRemoved = null;
 
             if (Head.Value.Equals(value))
             {
+                toBeRemoved = Head;
                 Head = Head.Next;
 
                 if (Head == null)
@@ -67,28 +77,30 @@ namespace DataStructures.Lists
                 }
 
                 Count--;
-                return true;
             }
-
-            var current = GetNode(n => n.Next != null && n.Next.Value.Equals(value));
-
-            if (current != null)
+            else
             {
-                if (current.Next == Tail)
-                {
-                    current.Next = null;
-                    Tail = current;
-                }
-                else
-                {
-                    current.Next = current.Next.Next;                    
-                }
+                var current = GetNode(n => n.Next != null && n.Next.Value.Equals(value));
 
-                Count--;
-                return true;
+                if (current != null)
+                {
+                    toBeRemoved = current.Next;
+
+                    if (toBeRemoved == Tail)
+                    {
+                        current.Next = null;
+                        Tail = current;
+                    }
+                    else
+                    {
+                        current.Next = current.Next.Next;
+                    }
+
+                    Count--;
+                }                
             }
 
-            return false;
+            return toBeRemoved;
         }
 
         public int Count { get; protected set; }
@@ -96,50 +108,7 @@ namespace DataStructures.Lists
         public bool IsSynchronized { get { return false; } }
         public bool IsReadOnly { get { return false; } }
 
-        public virtual void Reverse()
-        {
-            if (Head == null) return;
-
-            var current = Head;
-            var next = current.Next;
-            current.Next = null;
-
-            while (next != null)
-            {
-                var prevNext = next.Next;
-                next.Next = current;
-                current = next;
-                next = prevNext;
-            }
-
-            Tail = Head;
-            Head = current;
-        }
-
-        public void AddLoop(T value)
-        {
-            var current = Head;
-
-            while (current != null)
-            {
-                if (current.Value.Equals(value))
-                {
-                    Tail.Next = current;
-                    return;
-                }
-                current = current.Next;
-            }
-        }
-
-        public bool HasLoop()
-        {
-            var initialHead = Head;
-            Reverse();
-
-            return initialHead == Head;
-        }
-
-        public T this[int index]
+        public TValue this[int index]
         {
             get
             {
@@ -151,7 +120,7 @@ namespace DataStructures.Lists
             }
         }
 
-        protected Nodes.LinkedListNode<T> GetNode(Func<Nodes.LinkedListNode<T>, bool> predicate)
+        protected TNode GetNode(Func<TNode, bool> predicate)
         {
             var current = Head;
             while (current != null)
@@ -163,7 +132,7 @@ namespace DataStructures.Lists
             return null;
         }
 
-        protected Nodes.LinkedListNode<T> GetNodeAt(int index)
+        protected TNode GetNodeAt(int index)
         {
             if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
@@ -177,12 +146,12 @@ namespace DataStructures.Lists
             return current;
         }
 
-        public T GetMiddle()
+        public TValue GetMiddle()
         {
             return this[Count / 2];
         }
 
-        public virtual IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<TValue> GetEnumerator()
         {
             var current = Head;
             while (current != null)

@@ -3,7 +3,7 @@ using DataStructures.Nodes;
 
 namespace DataStructures.Lists
 {
-    public class LinkedList<T> : BaseLinkedList<T>
+    public class LinkedList<T> : BaseLinkedList<LinkedListNode<T>,  T>
     {
         public void RemoveAt(int index)
         {
@@ -54,6 +54,49 @@ namespace DataStructures.Lists
                 var current = GetNodeAt(index - 1);
                 current.Next = new LinkedListNode<T>(value, current.Next);                
             }
+        }
+
+        public virtual void Reverse()
+        {
+            if (Head == null) return;
+
+            var current = Head;
+            var next = current.Next;
+            current.Next = null;
+
+            while (next != null)
+            {
+                var prevNext = next.Next;
+                next.Next = current;
+                current = next;
+                next = prevNext;
+            }
+
+            Tail = Head;
+            Head = current;
+        }
+
+        public void AddLoop(T value)
+        {
+            var current = Head;
+
+            while (current != null)
+            {
+                if (current.Value.Equals(value))
+                {
+                    Tail.Next = current;
+                    return;
+                }
+                current = current.Next;
+            }
+        }
+
+        public bool HasLoop()
+        {
+            var initialHead = Head;
+            Reverse();
+
+            return initialHead == Head;
         }
     }
 }

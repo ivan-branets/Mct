@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataStructures.Lists
 {
-    public class SortedList<T> : BaseLinkedList<T>
+    public class SortedList<T> : BaseLinkedList<Nodes.LinkedListNode<T>, T>
         where T: IComparable
     {
         public override void Add(T value)

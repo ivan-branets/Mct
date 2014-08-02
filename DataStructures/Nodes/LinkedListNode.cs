@@ -1,6 +1,6 @@
 ﻿namespace DataStructures.Nodes
 {
-    public class LinkedListNode<T> : Node<T>
+    public class LinkedListNode<T> : BaseLinkedListNode<LinkedListNode<T>, T>
     {
         public LinkedListNode()
         {
@@ -12,17 +12,8 @@
         }
 
         public LinkedListNode(T value, LinkedListNode<T> next)
-            : base(value)
+            : base(value, next)
         {
-            Next = next;
-        }
-
-        public virtual LinkedListNode<T> Next { get; internal set; }
-
-        public virtual LinkedListNode<T> AddNext(T value)
-        {
-            Next = new LinkedListNode<T>(value);
-            return Next;
         }
     }
 }
