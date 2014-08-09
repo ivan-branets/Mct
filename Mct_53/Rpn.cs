@@ -10,6 +10,7 @@ namespace Mct_53
 
         public Rpn(string expression)
         {
+            FormatNegativeNumbers(ref expression);
             _rpn = CreateRpn(Split(expression));
         }
 
@@ -62,9 +63,16 @@ namespace Mct_53
             var stack = new Stack<int>();
             var operantCount = Operator.Operators[(char)_rpn[operatorIndex]].OperantCount;
 
-            for (var i = operatorIndex - 1; i >= operatorIndex - operantCount; i--)
+            try
             {
-                stack.Push((int)_rpn[i]);
+                for (var i = operatorIndex - 1; i >= operatorIndex - operantCount; i--)
+                {
+                    stack.Push((int)_rpn[i]);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new InvalidOperationException("Cannot find operants");
             }
 
             return stack;
@@ -161,6 +169,20 @@ namespace Mct_53
             }
 
             return result;
+        }
+
+        private static void FormatNegativeNumbers(ref string expression)
+        {
+            var array = expression.ToCharArray();
+            for (var i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i] == '-' && expression[i + 1] != ' ')
+                {
+                    array[i] = '~';
+                }
+            }
+
+            expression = new string(array);
         }
 
         private static int GetNumber(StringBuilder builder)

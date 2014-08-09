@@ -10,7 +10,8 @@ namespace Mct_53
             { '+', new Operator(0, 2, stack => stack.Pop() + stack.Pop()) },
             { '-', new Operator(0, 2, stack => stack.Pop() - stack.Pop()) },
             { '*', new Operator(1, 2, stack => stack.Pop() * stack.Pop()) },
-            { '/', new Operator(1, 2, stack => stack.Pop() / stack.Pop()) }
+            { '/', new Operator(1, 2, stack => stack.Pop() / stack.Pop()) },
+            { '~', new Operator(2, 1, stack => -stack.Pop()) }
         };
 
         public Operator(int priority, int operantCount, Func<Stack<int>, int> func)
